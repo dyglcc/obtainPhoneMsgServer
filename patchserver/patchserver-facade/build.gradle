@@ -1,0 +1,29 @@
+apply plugin: 'war'
+
+war.doLast{
+    copy {
+        from war.archivePath
+        into "$buildDir/libs"
+        rename('patchserver-facade.war', 'hotfix-apis.war')
+    }
+    delete fileTree('../../tomcatServer/apache-tomcat-8.5.20/webapps/hotfix-apis')
+    delete fileTree('../../tomcatServer/apache-tomcat-8.5.20/webapps/hotfix-console')
+}
+war.doLast {
+    copy{
+        from "$buildDir/libs/hotfix-apis.war"
+        into "$projectDir/war-war"
+    }
+    copy{
+        from "$buildDir/resources/main/application.properties"
+        into "$projectDir/war-war"
+        rename("application.properties","hotfix-apis.properties")
+    }
+    copy{
+        from "$projectDir/war-war"
+        into "../../war/"
+    }
+}
+dependencies {
+    compile project(':patchserver-core')
+}

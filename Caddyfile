@@ -1,0 +1,10 @@
+localhost:8000
+{
+    root /Users/dongyuangui/GITHUB/testabc/patchserver/website-copy
+    index index.php-language=chinese.html
+    log /Users/dongyuangui/GITHUB/testabc/log
+    proxy /api localhost:9999/hotfix-console {
+
+    }
+
+}

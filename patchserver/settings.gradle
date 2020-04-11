@@ -1,0 +1,4 @@
+include ':patchserver-core'
+include ':patchserver-facade'
+include ':patchserver-manager'
+

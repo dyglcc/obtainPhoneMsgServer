@@ -1,0 +1,40 @@
+apply plugin: 'war'
+war.doLast{
+    copy {
+        from war.archivePath
+        into "$buildDir/libs"
+        rename('patchserver-manager.war', 'hotfix-console.war')
+    }
+}
+war.doLast {
+    copy{
+        from "$buildDir/libs/hotfix-console.war"
+        into "$projectDir/war-war"
+    }
+    copy{
+        from "$buildDir/resources/main/application.properties"
+        into "$projectDir/war-war"
+        rename("application.properties","hotfix-console.properties")
+    }
+    copy{
+        from "$projectDir/war-war"
+        into "../../war/"
+    }
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    compile project(':patchserver-core')
+//    compile project(':SpringBoot-Grpc-Lib')
+    compile("org.springframework.boot:spring-boot-starter-velocity")
+    compile("org.springframework.boot:spring-boot-starter-mail")
+
+    compile("commons-io:commons-io:2.2")
+    compile("com.google.zxing:core:3.3.0")
+    compile("com.google.zxing:javase:3.3.0")
+
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
+
+}

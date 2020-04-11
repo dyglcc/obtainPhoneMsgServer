@@ -1,0 +1,144 @@
+#############################
+
+
+cart.php-language=chinese.html
+serverstatus.php-language=chinese.html，有个未支付的提示？
+
+
+todo ,vmess 按钮一直到vmess后边
+关闭居中
+
+注册成功提示一下，还需要来一个状态吗，需要的。必须的。
+金额相关的修改1。金额随机，2。页面上金额的一致性。
+
+
+
+帮助中心怎么搞，
+购买点击购买为什么卡住了一下。
+通测加入和删除用户。
+
+
+#############################
+
+todo
+流量正常显示，增加和删除用户使用 todo
+注册成功之后购物车里有一个未支付订单。todo
+
+
+将uuid写入v2ray服务器配置中怎么搞？
+https://medium.com/@TachyonDevel/%E8%B0%83%E7%94%A8-v2ray-%E6%8F%90%E4%BE%9B%E7%9A%84-api-%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E5%A2%9E%E5%88%A0%E6%93%8D%E4%BD%9C-adf9ff972973
+统计api
+v2ctl api --server=127.0.0.1:10085 StatsService.GetStats 'name: "user>>>123@gmail.com>>>traffic>>>downlink" reset: false'v2ctl api --server=127.0.0.1:10085 StatsService.GetStats 'name: "user>>>123@gmail.com>>>traffic>>>downlink" reset: false'
+https://github.com/glzjin/v2ray-java-sdk/tree/master/src/main
+https://github.com/v2ray/ext/blob/master/tools/control/api.go
+
+// 又发现一个v2ray客户端地址
+https://www.bookstack.cn/read/V2RAY/ui_client-windows.md
+
+
+//vmess://eyJ2IjoiMiIsInBzIjoiVjJyYXkgQmV0YSIsImFkZCI6IjE4NS4zNy4yNTMuNDEiLCJwb3J0Ijo0NDMsImlkIjoiZmRhODNkMGItN2JlYS00OWMzLThiN2MtMzk5OWYzOTU4MzcxIiwiYWlkIjo0LCJuZXQiOiJ0Y3AiLCJ0eXBlIjoibm9uZSIsImhvc3QiOiIiLCJwYXRoIjoiXC8iLCJ0bHMiOiJub25lIn0=
+{"v":"2","ps":"V2ray Beta","add":"185.37.253.41","port":443,"id":"fda83d0b-7bea-49c3-8b7c-3999f3958371","aid":4,"net":"tcp","type":"none","host":"","path":"\/","tls":"none"}
+
+submitticket-source.html 文件
+
+未登录界面的制作，
+
+
+支付宝界面设计 ok
+开始测试？ ok
+
+
+
+把安卓的zxing，热修复更新加进去，
+选一个cn2的网络来做测试
+todo ，生成二维码，让手机扫描 {"server":"192.168.0.2","servername":"日本2号服务器","id":"278C12C3-E183-491A-8DA8-D1E5BD0340C0","port":10094}
+
+
+3.续费商品到支付界面  create-renewal.html --> select 一条续费记录上面，到renewal.html.--order-detail-chinese.html ok
+我的产品界面。todo
+我的订单界面，todo
+流量统计
+productdetails
+工单系统明天再提交一个看怎么回复。
+server_location 服务器名称 '香港2'
+port 端口
+add 地址 ip或者域名
+ratio 流量倍率
+
+
+香港 3	45.142.164.184	0.01
+
+
+
+
+
+notice 通知message 接口
+1消息表里面有，你有一条未支付订单，点击进入支付界面
+2或者通知账户余额快到期了，尽快充值避免影响使用。
+账单编号9476209 - Shadoom.wsocks.chtml.htm
+通知表里有用户的id。message 类型，暂时只有支付类型，点击进入账单页面。
+用户id
+
+order表表-----------------
+账单id 自增id
+parentid //续费会产生一条账单记录，没有parentid的将是新的记录。
+userid
+{userid}
+账单金额千分值{amount}
+账单时间创建账单时间{create_at}
+支付时间{charge_at}
+支付类型{pay_type} 1.支付宝2。比特币
+产品类型 {product_type}1。个人2。ipv6，3。企业
+什么时候开始{start_at} 开始时间，没有parent的情况下是当前时间开始，有续费的话时间的开始时间,续费的话，父账单就失效了
+什么时候到期{end_at} 支付完成后开始计算 // 新账单是付费开始，加上月付的话加上一个月，年付，两年付和三年付款加相应的年份。/如果是续费在上一个过期时间上加
+uuid客户端使用的id，{uuid}续费id不变，新帐号将会产生新的id
+付款周期 （pay_period）1.月付2。年付。3。两年付款4。三年付款
+{status}状态（1未支付状态,2使用中和3用完了）
+
+
+
+
+
+用户表，-----------------
+需要添加用户firstname
+和lastname，地区
+
+todo doing......................................................
+产品类型表0----------- todo ，完成产品表完善注册表，实现登录和非登录的功能
+产品企业类型，只保留个人用户，未来再重新开放ipv6和企业版
+产品类型
+11（8种付款周期，三年，二年，年付，半年付，季付，月付,周付，天付），1.66*12 1.50*12 1.39*36
+
+高级版本和旗舰筹备中
+//12（三种支付方式没有月付）6.66*12 5.83*24 5.35* 36
+//13（四种支付方式）12.95 8.33*12 6.66*24 5.83*36
+//21 三年两年年付1.62*12*3 1.62*12*2 1.62*12
+//31 年付250*12和月付299.95
+//32 年付416.66*12 和月付499.95
+个人使用，
+产品描述
+产品名称
+
+付款周期表
+产品类型id
+36 ，三年
+24，两年
+12 ，一年
+1。月付
+
+
+
+工单系统-----------
+姓名email
+部门
+优先级
+主题
+content
+
+
+
+4.注册api完成 ok
+5.注册前端和后端联调 ok
+todo.....
+6.购物车实现
+7.支付实现find . -type f -name *.proto -exec protoc -I. --java_out=./java {} \;

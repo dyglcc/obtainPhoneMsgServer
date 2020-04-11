@@ -1,0 +1,45 @@
+/usr/bin/v2ray/v2ray -config /etc/v2ray/config.json start
+[2019年 10月 02日 星期三 09:42:37 EDT] Installing alias to '/root/.cshrc'
+[2019年 10月 02日 星期三 09:42:37 EDT] Installing alias to '/root/.tcshrc'
+
+// 启动caddy服务
+start-stop-daemon --start --quiet --background --oknodo --exec /usr/local/bin/caddy -- -conf=/root/opt/testabc/serverConfig/Caddyfile
+start caddy
+// 启动v2ray服务
+start-stop-daemon --start --quiet --background  --oknodo --exec /usr/bin/v2ray/v2ray -- -config=/root/opt/testabc/serverConfig/config.json
+start v2ray
+v2ray 启动需要用systemctl start 方式启动
+cp /root/opt/testabc/serverConfig/config.json /etc/v2ray/
+确保systemctl restart v2ray.service 命令正常运行。
+// 启动node 服务，用来增加和删除用户
+start-stop-daemon --start --quiet --background  --oknodo --exec /usr/bin/node /root/opt/testabc/nodeServer/index.js
+/usr/local/bin/node
+
+//启动tomcat服务器
+拷贝properties文件
+cp /root/opt/testabc/war/hotfix*.properties
+cp /root/opt/testabc/war/hotfix*.war /tomcat/webapp/
+
+
+/root/opt/testabc/tomcatServer/apache-tomcat-8.5.20/bin/startup.sh
+
+
+// v2ray log file --
+/usr/bin/v2ray/log
+
+[2019年 10月 02日 星期三 11:10:17 EDT] Your cert is in  /root/.acme.sh/anydomain.tk_ecc/anydomain.tk.cer
+[2019年 10月 02日 星期三 11:10:17 EDT] Your cert key is in  /root/.acme.sh/anydomain.tk_ecc/anydomain.tk.key
+[2019年 10月 02日 星期三 11:10:17 EDT] The intermediate CA cert is in  /root/.acme.sh/anydomain.tk_ecc/ca.cer
+[2019年 10月 02日 星期三 11:10:17 EDT] And the full chain certs is there:  /root/.acme.sh/anydomain.tk_ecc/fullchain.cer
+
+
+https://my.freenom.com/clientarea.php?action=domaindetails&id=1074465692
+// v2ray 安装，使用go.sh，mac客户端使用登陆github，复制最新代码，除了config.json之外，全部复制覆盖原来目录，即可，启动。
+mac 端：cd 到v2ray,然后 bash v2ray
+server端：安装使用go.sh，然后
+mkdir -p /usr/bin/v2ray/log/error
+mkdir -p /usr/bin/v2ray/log/access
+
+在serverConfig下面执行
+/usr/bin/v2ray/v2ray -config config.json start 即可启动v2ray.
+
