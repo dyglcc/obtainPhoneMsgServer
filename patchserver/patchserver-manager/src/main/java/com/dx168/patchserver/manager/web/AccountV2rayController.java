@@ -37,9 +37,13 @@ public class AccountV2rayController {
 
     @RequestMapping(value = "/api/v1/login", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse login(HttpServletRequest req, HttpServletResponse res, String redirect, String email, String password, String rememberPwd) {
+    RestResponse login(HttpServletRequest req, HttpServletResponse res, String mobile, String email, String password, String rememberPwd) {
         RestResponse restR = new RestResponse();
-        BasicUser basicUser = accountService.findByEmail(email);
+        if(VStringUtils.isEmpty(mobile)){
+            restR.setMessage("用户手机号不存在");
+            return restR;
+        }
+        BasicUser basicUser = accountService.findByMobile(mobile);
         boolean result = accountService.authenticate(basicUser, password);
         if (result) {
             if ("on".equals(rememberPwd)) {

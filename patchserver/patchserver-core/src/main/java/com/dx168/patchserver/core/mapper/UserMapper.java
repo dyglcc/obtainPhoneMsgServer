@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     BasicUser findByEmail(String email);
+    BasicUser findByMobile(String mobile);
 
     BasicUser findById(Integer id);
 

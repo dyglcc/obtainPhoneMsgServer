@@ -57,7 +57,18 @@ updated_at
 `created_at`
 status 0未处理，1已经处理；
 */
-
+DROP TABLE IF EXISTS `t_relation`;
+CREATE TABLE `t_relation` (
+  `id`           INT         NOT NULL AUTO_INCREMENT,
+  `user_phone`      VARCHAR(32)               DEFAULT NULL,
+  `relate_phone`      VARCHAR(32)               DEFAULT NULL,
+  `name`      VARCHAR(32)               DEFAULT NULL,
+  `created_at`   DATETIME             DEFAULT NULL,
+  `updated_at`   DATETIME             DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
 
 DROP TABLE IF EXISTS `t_subticket`;
 CREATE TABLE `t_subticket` (
@@ -143,11 +154,11 @@ DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id`           INT         NOT NULL AUTO_INCREMENT,
   `parent_id`    INT                  DEFAULT NULL,
-  `firstname`    VARCHAR(32)          NOT NULL,
-  `lastname`     VARCHAR(32)          NOT NULL,
-  `mobile`       VARCHAR(16)          DEFAULT NULL,
-  `email`        VARCHAR(32)          NOT NUll,
-  `password`     VARCHAR(32)          NOT NULL,
+  `firstname`    VARCHAR(32)          DEFAULT NULL,
+  `lastname`     VARCHAR(32)          DEFAULT NULL,
+  `mobile`       VARCHAR(16)          NOT NULL,
+  `email`        VARCHAR(32)          DEFAULT NULL,
+  `password`     VARCHAR(32)          DEFAULT NULL,
   `created_at`   DATETIME             DEFAULT NULL,
   `updated_at`   DATETIME             DEFAULT NULL,
   PRIMARY KEY (`id`),

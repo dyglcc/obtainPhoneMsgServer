@@ -27,7 +27,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile project(':patchserver-core')
-//    compile project(':SpringBoot-Grpc-Lib')
     compile("org.springframework.boot:spring-boot-starter-velocity")
     compile("org.springframework.boot:spring-boot-starter-mail")
 

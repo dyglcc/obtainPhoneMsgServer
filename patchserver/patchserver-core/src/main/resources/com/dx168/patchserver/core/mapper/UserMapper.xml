@@ -62,6 +62,9 @@ CREATE TABLE `t_user` (
     <select id="findByEmail" resultType="com.dx168.patchserver.core.domain.BasicUser" resultMap="BaseResultMap" >
         select * from t_user where email = #{email}
     </select>
+    <select id="findByMobile" resultType="com.dx168.patchserver.core.domain.BasicUser" resultMap="BaseResultMap" >
+        select * from t_user where mobile = #{mobile}
+    </select>
 
     <select id="findAllChildUser" resultMap="BaseResultMap">
         select * from t_user where parent_id = #{parentId} order by created_at desc ;

@@ -42,6 +42,10 @@ public class AccountService {
 
         return userMapper.findByEmail(email);
     }
+    public BasicUser findByMobile(String mobile) {
+
+        return userMapper.findByMobile(mobile);
+    }
 
     public void save(BasicUser basicUser) {
         basicUser.setPassword(DigestUtils.md5DigestAsHex((globalSecretKey + "_" + basicUser.getPassword()).getBytes()));
