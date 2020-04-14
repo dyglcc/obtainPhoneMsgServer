@@ -107,22 +107,6 @@ public class AccountV2rayController {
     RestResponse regist(HttpServletRequest req, HttpServletResponse res, String firstName, String email, String lastName, String password, String mobile) {
         RestResponse restResponse = new RestResponse();
         try {
-            if (VStringUtils.isEmpty(email)) {
-                restResponse.setMessage("email不能为空");
-                return restResponse;
-            }
-            if (!email.contains("@")) {
-                restResponse.setMessage("email格式不正确");
-                return restResponse;
-            }
-            if (VStringUtils.isEmpty(firstName)) {
-                restResponse.setMessage("firstName不能为空");
-                return restResponse;
-            }
-            if (VStringUtils.isEmpty(lastName)) {
-                restResponse.setMessage("lastName不能为空");
-                return restResponse;
-            }
             if (VStringUtils.isEmpty(password)) {
                 restResponse.setMessage("password不能为空");
                 return restResponse;
