@@ -162,7 +162,7 @@ CREATE TABLE `t_user` (
   `created_at`   DATETIME             DEFAULT NULL,
   `updated_at`   DATETIME             DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `EMAIL` (`email`),
+  UNIQUE KEY `mobile` (`mobile`),
   FOREIGN KEY (parent_id) REFERENCES t_user (id)
 )
   ENGINE = InnoDB
