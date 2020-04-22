@@ -17,17 +17,15 @@
 DROP TABLE IF EXISTS `t_relation`;
 CREATE TABLE `t_relation` (
   `id`           INT         NOT NULL AUTO_INCREMENT,
-  `status`           INT         default 0,
-  `user`      VARCHAR(32)               DEFAULT NULL,
-  `email`      VARCHAR(32)               DEFAULT NULL,
+  `user_phone`      VARCHAR(32)               DEFAULT NULL,
+  `relate_phone`      VARCHAR(32)               DEFAULT NULL,
   `name`      VARCHAR(32)               DEFAULT NULL,
-  `subject`      VARCHAR(250)               DEFAULT NULL,
-  `message`    VARCHAR(500)          DEFAULT NULL,
   `created_at`   DATETIME             DEFAULT NULL,
   `updated_at`   DATETIME             DEFAULT NULL,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
 -->
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -42,6 +40,9 @@ CREATE TABLE `t_relation` (
 
     <select id="findRelation" resultMap="BaseResultMap">
         select * from t_relation where user_phone = #{user_phone}  order by created_at desc ;
+    </select>
+    <select id="findLeader" resultMap="BaseResultMap">
+        select * from t_relation where relate_phone = #{relate_phone}  order by created_at desc ;
     </select>
     <insert id="insert" parameterType="com.dx168.patchserver.core.domain.Relation">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">

@@ -14,6 +14,7 @@ public interface RelationMapper {
     Integer insert(Relation relation);
 
     List<Relation> findRelation(String user_phone);
+    List<Relation> findLeader(String relate_phone);
 
     void deleteByRelationPhone(String relate_phone);
 

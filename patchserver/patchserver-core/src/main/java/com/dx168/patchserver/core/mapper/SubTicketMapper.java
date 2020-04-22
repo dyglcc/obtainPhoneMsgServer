@@ -13,7 +13,7 @@ public interface SubTicketMapper {
 
     Integer insert(SubTicket subTicket);
 
-    List<SubTicket> findAllServers();
+    List<SubTicket> findAllMessages(String user);
 
     void deleteById(Integer id);
     void updateStatus(SubTicket server);

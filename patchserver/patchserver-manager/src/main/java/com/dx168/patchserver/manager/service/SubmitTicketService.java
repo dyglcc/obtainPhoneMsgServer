@@ -19,8 +19,8 @@ public class SubmitTicketService{
         return serverMapper.insert(server);
     }
 
-    public List<SubTicket> findAllServers() {
-        return serverMapper.findAllServers();
+    public List<SubTicket> findAllMessages(String user) {
+        return serverMapper.findAllMessages(user);
     }
 
     public void deleteById(Integer id) {
@@ -32,6 +32,5 @@ public class SubmitTicketService{
         serverMapper.updateStatus(server);
 
     }
-
 
 }

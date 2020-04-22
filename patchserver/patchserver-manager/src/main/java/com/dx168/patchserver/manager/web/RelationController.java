@@ -85,6 +85,29 @@ public class RelationController {
             restResponse.toString();
         }
     }
+    // 新创建订单 // or renewal
+    @RequestMapping(value = "/api/v1/findLeader", method = RequestMethod.POST)
+    public @ResponseBody
+    RestResponse findLeader(HttpServletRequest req, String mobile) {
+        RestResponse restResponse = new RestResponse();
+
+        if(VStringUtils.isEmpty(mobile)){
+            restResponse.setMessage("用户手机号不存在");
+            return restResponse;
+        }
+        try{
+            List<Relation> list =orderService.findLeader(mobile);
+            restResponse.setMessage(RestResponse.OK);
+            restResponse.getData().put("data",list);
+            return restResponse;
+        } catch (BizException e) {
+            e.printStackTrace();
+            restResponse.setMessage(e.getMessage());
+            return restResponse;
+        } finally {
+            restResponse.toString();
+        }
+    }
 
 
 }

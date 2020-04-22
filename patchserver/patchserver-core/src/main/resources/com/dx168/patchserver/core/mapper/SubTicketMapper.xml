@@ -40,8 +40,8 @@ CREATE TABLE `t_subticket` (
         <result column="updated_at" property="updated_at" />
     </resultMap>
 
-    <select id="findAllServers" resultMap="BaseResultMap">
-        select * from t_subticket order by created_at desc ;
+    <select id="findAllMessages" resultMap="BaseResultMap">
+        select * from t_subticket where user = #{user} order by created_at desc ;
     </select>
     <insert id="insert" parameterType="com.dx168.patchserver.core.domain.SubTicket">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">

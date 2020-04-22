@@ -21,6 +21,9 @@ public class RelationService {
     public List<Relation> findRelation(String user_phone) {
         return serverMapper.findRelation(user_phone);
     }
+    public List<Relation> findLeader(String relate_phone) {
+        return serverMapper.findLeader(relate_phone);
+    }
 
     public void deleteById(String relate_phone) {
 
