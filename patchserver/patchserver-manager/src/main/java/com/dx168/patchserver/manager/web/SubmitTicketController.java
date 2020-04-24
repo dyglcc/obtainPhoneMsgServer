@@ -6,19 +6,15 @@ import cn.jiguang.common.resp.APIRequestException;
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.push.PushResult;
 import cn.jpush.api.push.model.Message;
-import cn.jpush.api.push.model.Options;
 import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
-import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import com.dx168.patchserver.core.domain.SubTicket;
 import com.dx168.patchserver.core.utils.BizException;
 import com.dx168.patchserver.core.utils.VStringUtils;
 import com.dx168.patchserver.manager.common.RestResponse;
 import com.dx168.patchserver.manager.service.SubmitTicketService;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +61,7 @@ public class SubmitTicketController {
 
             orderService.insert(subTicket);
             restResponse.setMessage(RestResponse.OK);
+            pushCode(mobile);
             return restResponse;
         } catch (BizException e) {
             e.printStackTrace();
@@ -89,7 +86,6 @@ public class SubmitTicketController {
             List<SubTicket> list = orderService.findAllMessages(mobile);
             restResponse.setMessage(RestResponse.OK);
             restResponse.getData().put("data", list);
-            pushCode(mobile);
             return restResponse;
         } catch (BizException e) {
             e.printStackTrace();
@@ -100,40 +96,16 @@ public class SubmitTicketController {
         }
     }
 
-
-    public static PushPayload buildPushObject_android_tagAnd_alertWithExtrasAndMessage() {
-        JsonObject sound = new JsonObject();
-        sound.add("critical", new JsonPrimitive(1));
-        sound.add("name", new JsonPrimitive("default"));
-        sound.add("volume", new JsonPrimitive(0.2));
-        return PushPayload.newBuilder()
-                .setPlatform(Platform.android())
-                .setAudience(Audience.tag_and("tag1", "tag_all"))
-                .setNotification(Notification.newBuilder()
-                        .addPlatformNotification(IosNotification.newBuilder()
-                                .setAlert(ALERT)
-                                .setBadge(5)
-                                .setMutableContent(false)
-//                                .setSound("happy")
-                                .setSound(sound)
-                                .addExtra("from", "JPush")
-                                .build())
-                        .build())
-                .setMessage(Message.content(MSG_CONTENT))
-                .setOptions(Options.newBuilder()
-                        .setApnsProduction(true)
-                        .build())
-                .build();
-    }
     public void pushCode(String mobile) {
 
         JPushClient jpushClient = new JPushClient(MASTER_SECRET, APP_KEY, null, ClientConfig.getInstance());
 
         // For push, all you need do is to build PushPayload object.
-        PushPayload payload = buildPushObject_android_tagAnd_alertWithExtrasAndMessage();
+        PushPayload payload = buildPushObject_all_alias_alert(mobile);
 
         try {
-            PushResult result = jpushClient.sendAndroidMessageWithAlias("title_from_server","nishoudao一个yanzhengma",mobile);
+//            PushResult result = jpushClient.sendAndroidMessageWithAlias("title_from_server","nishoudao一个yanzhengma",mobile);
+            PushResult result = jpushClient.sendPush(payload);
             LOG.info("Got result - " + result);
 
         } catch (APIConnectionException e) {
@@ -151,5 +123,14 @@ public class SubmitTicketController {
 
     public static PushPayload buildPushObject_all_all_alert() {
         return PushPayload.alertAll(ALERT);
+    }
+
+    public static PushPayload buildPushObject_all_alias_alert(String alias) {
+        return PushPayload.newBuilder()
+                .setPlatform(Platform.android())
+                .setAudience(Audience.alias(alias))
+                .setMessage(Message.content("您的验证码是：abc"))
+                .setNotification(Notification.android(ALERT, TITLE, null))
+                .build();
     }
 }
