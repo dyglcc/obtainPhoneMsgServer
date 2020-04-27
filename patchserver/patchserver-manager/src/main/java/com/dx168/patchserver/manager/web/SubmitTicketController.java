@@ -34,8 +34,8 @@ import java.util.List;
 public class SubmitTicketController {
     public static final String APP_KEY = "3c1bafd2c4145faeaa7da1bb";
     public static final String MASTER_SECRET = "5938bf4944d90f81a3e75aa9";
-    public static final String TITLE = "Test from API example";
-    public static final String ALERT = "Test from API Example - alert";
+    public static final String TITLE = "共享亲密号";
+    public static final String ALERT = "共享亲密号 - 通知";
     public static final String MSG_CONTENT = "Test from API Example - msgContent";
     public static final String REGISTRATION_ID = "0900e8d85ef";
     public static final String TAG = "tag_api";
@@ -120,10 +120,10 @@ public class SubmitTicketController {
             LOG.info("Error Message: " + e.getErrorMessage());
         }
     }
-
-    public static PushPayload buildPushObject_all_all_alert() {
-        return PushPayload.alertAll(ALERT);
-    }
+//
+//    public static PushPayload buildPushObject_all_all_alert() {
+//        return PushPayload.alertAll(ALERT);
+//    }
 
     public static PushPayload buildPushObject_all_alias_alert(String alias) {
         return PushPayload.newBuilder()
