@@ -28,7 +28,7 @@ todo
 将uuid写入v2ray服务器配置中怎么搞？
 https://medium.com/@TachyonDevel/%E8%B0%83%E7%94%A8-v2ray-%E6%8F%90%E4%BE%9B%E7%9A%84-api-%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E5%A2%9E%E5%88%A0%E6%93%8D%E4%BD%9C-adf9ff972973
 统计api
-v2ctl api --server=127.0.0.1:10085 StatsService.GetStats 'name: "user>>>123@gmail.com>>>traffic>>>downlink" reset: false'v2ctl api --server=127.0.0.1:10085 StatsService.GetStats 'name: "user>>>123@gmail.com>>>traffic>>>downlink" reset: false'
+v2ctl api --appShares=127.0.0.1:10085 StatsService.GetStats 'name: "user>>>123@gmail.com>>>traffic>>>downlink" reset: false'v2ctl api --appShares=127.0.0.1:10085 StatsService.GetStats 'name: "user>>>123@gmail.com>>>traffic>>>downlink" reset: false'
 https://github.com/glzjin/v2ray-java-sdk/tree/master/src/main
 https://github.com/v2ray/ext/blob/master/tools/control/api.go
 
@@ -51,7 +51,7 @@ submitticket-source.html 文件
 
 把安卓的zxing，热修复更新加进去，
 选一个cn2的网络来做测试
-todo ，生成二维码，让手机扫描 {"server":"192.168.0.2","servername":"日本2号服务器","id":"278C12C3-E183-491A-8DA8-D1E5BD0340C0","port":10094}
+todo ，生成二维码，让手机扫描 {"appShares":"192.168.0.2","servername":"日本2号服务器","id":"278C12C3-E183-491A-8DA8-D1E5BD0340C0","port":10094}
 
 
 3.续费商品到支付界面  create-renewal.html --> select 一条续费记录上面，到renewal.html.--order-detail-chinese.html ok

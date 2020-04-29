@@ -26,11 +26,15 @@ public class RelationController {
     // 新创建订单 // or renewal
     @RequestMapping(value = "/api/v1/addrelation", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse ticket(HttpServletRequest req, String name, String user_phone, String relate_phone) {
+    RestResponse ticket(HttpServletRequest req, String name, String user_phone, String relate_phone,String group_id) {
         RestResponse restResponse = new RestResponse();
 
         if(VStringUtils.isEmpty(user_phone)){
             restResponse.setMessage("用户手机号不存在");
+            return restResponse;
+        }
+        if(VStringUtils.isEmpty(group_id)){
+            restResponse.setMessage("用户组不能是空");
             return restResponse;
         }
         if(VStringUtils.isEmpty(relate_phone)){
@@ -44,6 +48,7 @@ public class RelationController {
         Relation relation = new Relation();
         try{
             relation.setName(name);
+            relation.setGroup_id(Integer.parseInt(group_id));
             relation.setRelate_phone(relate_phone);
             relation.setUser_phone(user_phone);
             relation.setCreated_at(new Date());

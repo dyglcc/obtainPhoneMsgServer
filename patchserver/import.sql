@@ -60,6 +60,7 @@ status 0未处理，1已经处理；
 DROP TABLE IF EXISTS `t_relation`;
 CREATE TABLE `t_relation` (
   `id`           INT         NOT NULL AUTO_INCREMENT,
+  `group_id`           INT         DEFAULT 0,
   `user_phone`      VARCHAR(32)               DEFAULT NULL,
   `relate_phone`      VARCHAR(32)               DEFAULT NULL,
   `name`      VARCHAR(32)               DEFAULT NULL,
@@ -93,13 +94,25 @@ CREATE TABLE `t_subticket` (
 
 
 
-DROP TABLE IF EXISTS `t_servers`;
-CREATE TABLE `t_servers` (
+DROP TABLE IF EXISTS `t_app_shares`;
+CREATE TABLE `t_app_shares` (
   `id`           INT         NOT NULL AUTO_INCREMENT,
-  `server_location`      VARCHAR(32)               DEFAULT NULL,
-  `port`     int           DEFAULT 1,
-  `address`      VARCHAR(32)               DEFAULT NULL,
-  `ratio`    VARCHAR(10)          DEFAULT NULL,
+  `icon_url`      VARCHAR(32)               DEFAULT NULL,
+  `app_name`      VARCHAR(32)               DEFAULT NULL,
+  `created_at`   DATETIME             DEFAULT NULL,
+  `updated_at`   DATETIME             DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+-- main_account  sub_account_id  are  mobiles
+DROP TABLE IF EXISTS `t_shares`;
+CREATE TABLE `t_shares` (
+  `id`           INT         NOT NULL AUTO_INCREMENT,
+  `main_account`      VARCHAR(32)               DEFAULT NULL,
+  `app_id`      INT               DEFAULT NULL,
+  `status`      INT               DEFAULT 1,
   `created_at`   DATETIME             DEFAULT NULL,
   `updated_at`   DATETIME             DEFAULT NULL,
   PRIMARY KEY (`id`)

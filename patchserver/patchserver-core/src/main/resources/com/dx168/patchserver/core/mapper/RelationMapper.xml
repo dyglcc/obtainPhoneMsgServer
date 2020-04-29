@@ -49,11 +49,12 @@ CREATE TABLE `t_relation` (
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
         insert into t_relation (
-        user_phone, relate_phone,name,created_at,updated_at
+        user_phone, relate_phone,group_id,name,created_at,updated_at
         )
         values (
         #{user_phone,jdbcType=VARCHAR},
         #{relate_phone,jdbcType=VARCHAR},
+        #{group_id,jdbcType=INTEGER},
         #{name,jdbcType=VARCHAR},
         #{created_at,jdbcType=TIMESTAMP},
         #{updated_at,jdbcType=TIMESTAMP}

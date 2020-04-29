@@ -40,6 +40,17 @@ public class Relation {
     }
 
     private String user_phone;
+
+
+    public int getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(int group_id) {
+        this.group_id = group_id;
+    }
+
+    private int group_id;
     private String relate_phone;
     private Date updated_at;
     private Date created_at;
