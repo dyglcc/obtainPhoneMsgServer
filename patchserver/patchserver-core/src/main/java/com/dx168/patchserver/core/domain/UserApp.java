@@ -1,6 +1,7 @@
 package com.dx168.patchserver.core.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * `created_at`   DATETIME             DEFAULT NULL,
@@ -8,29 +9,6 @@ import java.util.Date;
  */
 public class UserApp {
     private int id;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    private int status;
-    private String main_account;
-    private int app_id;
-    private int sub_account_id;
-    private Date created_at;
-    private Date updated_at;
-
-    public String getMain_account() {
-        return main_account;
-    }
-
-    public void setMain_account(String main_account) {
-        this.main_account = main_account;
-    }
 
     public int getApp_id() {
         return app_id;
@@ -40,13 +18,48 @@ public class UserApp {
         this.app_id = app_id;
     }
 
-    public int getSub_account_id() {
-        return sub_account_id;
+    private int app_id;
+
+    public int getStatus() {
+        return status;
     }
 
-    public void setSub_account_id(int sub_account_id) {
-        this.sub_account_id = sub_account_id;
+    public void setStatus(int status) {
+        this.status = status;
     }
+
+    private String main_account;
+    private int status;
+    private AppShares app;
+    private Date created_at;
+
+    public AppShares getApp() {
+        return app;
+    }
+
+    public void setApp(AppShares app) {
+        this.app = app;
+    }
+
+    public List<Relation> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(List<Relation> relations) {
+        this.relations = relations;
+    }
+
+    private Date updated_at;
+    private List<Relation> relations;
+
+    public String getMain_account() {
+        return main_account;
+    }
+
+    public void setMain_account(String main_account) {
+        this.main_account = main_account;
+    }
+
 
     public int getId() {
         return id;

@@ -9,6 +9,25 @@ import java.util.Date;
 public class AppShares {
     private int id;
     private String icon_url;
+    private int status;
+
+    public int getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(int group_id) {
+        this.group_id = group_id;
+    }
+
+    private int group_id;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getIcon_url() {
         return icon_url;

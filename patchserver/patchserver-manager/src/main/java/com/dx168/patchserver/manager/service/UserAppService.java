@@ -20,8 +20,8 @@ public class UserAppService {
         return appShareMapper.insert(appShares);
     }
 
-    public List<UserApp> findAllGroups() {
-        return appShareMapper.findAllGroups();
+    public List<UserApp> findAllGroups(String main_account) {
+        return appShareMapper.findAllGroups(main_account);
     }
 
     public void deleteById(Integer id) {

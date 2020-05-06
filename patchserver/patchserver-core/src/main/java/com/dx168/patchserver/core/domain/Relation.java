@@ -5,8 +5,8 @@ import java.util.Date;
 /**
  * /**
  * `id`           INT         NOT NULL AUTO_INCREMENT,
- * `user_phone`      VARCHAR(32)               DEFAULT NULL,
- * `relate_phone`      VARCHAR(32)               DEFAULT NULL,
+ * `main_account`      VARCHAR(32)               DEFAULT NULL,
+ * `sub_account`      VARCHAR(32)               DEFAULT NULL,
  * `created_at`   DATETIME             DEFAULT NULL,
  * `updated_at`   DATETIME
  */
@@ -23,23 +23,24 @@ public class Relation {
 
     private String name;
 
-    public String getUser_phone() {
-        return user_phone;
+
+    public String getMain_account() {
+        return main_account;
     }
 
-    public void setUser_phone(String user_phone) {
-        this.user_phone = user_phone;
+    public void setMain_account(String main_account) {
+        this.main_account = main_account;
     }
 
-    public String getRelate_phone() {
-        return relate_phone;
+    public String getSub_account() {
+        return sub_account;
     }
 
-    public void setRelate_phone(String relate_phone) {
-        this.relate_phone = relate_phone;
+    public void setSub_account(String sub_account) {
+        this.sub_account = sub_account;
     }
 
-    private String user_phone;
+    private String main_account;
 
 
     public int getGroup_id() {
@@ -51,9 +52,30 @@ public class Relation {
     }
 
     private int group_id;
-    private String relate_phone;
+    private String sub_account;
     private Date updated_at;
     private Date created_at;
+
+    // share app
+    private String icon_url;
+
+    public String getIcon_url() {
+        return icon_url;
+    }
+
+    public void setIcon_url(String icon_url) {
+        this.icon_url = icon_url;
+    }
+
+    public String getApp_name() {
+        return app_name;
+    }
+
+    public void setApp_name(String app_name) {
+        this.app_name = app_name;
+    }
+
+    private String app_name;
 
 
     public int getId() {

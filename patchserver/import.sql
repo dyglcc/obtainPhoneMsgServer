@@ -61,8 +61,8 @@ DROP TABLE IF EXISTS `t_relation`;
 CREATE TABLE `t_relation` (
   `id`           INT         NOT NULL AUTO_INCREMENT,
   `group_id`           INT         DEFAULT 0,
-  `user_phone`      VARCHAR(32)               DEFAULT NULL,
-  `relate_phone`      VARCHAR(32)               DEFAULT NULL,
+  `main_account`      VARCHAR(32)               DEFAULT NULL,
+  `sub_account`      VARCHAR(32)               DEFAULT NULL,
   `name`      VARCHAR(32)               DEFAULT NULL,
   `created_at`   DATETIME             DEFAULT NULL,
   `updated_at`   DATETIME             DEFAULT NULL,

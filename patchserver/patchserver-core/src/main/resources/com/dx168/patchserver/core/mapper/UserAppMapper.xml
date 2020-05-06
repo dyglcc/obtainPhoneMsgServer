@@ -21,14 +21,37 @@ CREATE TABLE `t_shares` (
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dx168.patchserver.core.mapper.UserAppMapper">
-    <resultMap id="BaseResultMap" type="com.dx168.patchserver.core.domain.UserApp" >
-        <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="created_at" property="created_at" />
-        <result column="updated_at" property="updated_at" />
+    <resultMap id="BaseResultMap" type="com.dx168.patchserver.core.domain.UserApp">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="created_at" property="created_at"/>
+        <result column="updated_at" property="updated_at"/>
+
+
+        <association property="app" javaType="com.dx168.patchserver.core.domain.AppShares" column="app_id">
+
+            <id property="id" column="app_id"></id>
+            <result property="app_name" column="app_name"></result>
+            <result property="icon_url" column="icon_url"></result>
+
+        </association>
+
+        <!--        group_id`           INT         DEFAULT 0,-->
+        <!--        `main_account`      VARCHAR(32)               DEFAULT NULL,-->
+        <!--        `sub_account`      VARCHAR(32)               DEFAULT NULL,-->
+        <!--        `name`-->
+        <collection property="relations" ofType="com.dx168.patchserver.core.domain.Relation" column="group_id">
+            <id property="id" column="relation_id"></id>
+            <result property="group_id" column="group_id"></result>
+            <result property="main_account" column="main_account"></result>
+            <result property="sub_account" column="sub_account"></result>
+            <result property="name" column="name"></result>
+        </collection>
+
     </resultMap>
 
-    <select id="findAllAppShares" resultMap="BaseResultMap">
-        select * from t_shares order by created_at desc ;
+    <select id="findAllGroups" resultMap="BaseResultMap">
+        select t.id,t.main_account,t.app_id,t.status,r.*, a.* from t_shares t LEFT JOIN t_app_shares a on t.app_id = a.id  LEFT JOIN t_relation r on t.app_id = r.group_id and r.main_account = 13810580894 where t.status=1 and t.main_account=#{main_account}
+         order by t.created_at desc ;
     </select>
     <insert id="insert" parameterType="com.dx168.patchserver.core.domain.UserApp">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
@@ -39,16 +62,16 @@ CREATE TABLE `t_shares` (
         )
         values (
         #{main_account,jdbcType=VARCHAR},
-        #{app_id,jdbcType=Integer},
+        #{app_id,jdbcType=INTEGER},
         #{created_at,jdbcType=TIMESTAMP}
         )
     </insert>
 
-    <delete id="deleteById" >
+    <delete id="deleteById">
         DELETE FROM t_shares where id = #{id}
     </delete>
 
-    <update id="update" parameterType="com.dx168.patchserver.core.domain.UserApp" >
+    <update id="update" parameterType="com.dx168.patchserver.core.domain.UserApp">
         UPDATE  t_shares
         SET
         updated_at = #{updated_at,jdbcType=TIMESTAMP},

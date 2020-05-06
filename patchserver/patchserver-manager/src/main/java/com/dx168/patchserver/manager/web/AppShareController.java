@@ -1,6 +1,7 @@
 package com.dx168.patchserver.manager.web;
 
 import com.dx168.patchserver.core.domain.AppShares;
+import com.dx168.patchserver.core.utils.VStringUtils;
 import com.dx168.patchserver.manager.common.RestResponse;
 import com.dx168.patchserver.manager.service.AccountService;
 import com.dx168.patchserver.manager.service.AppShareService;
@@ -31,10 +32,13 @@ public class AppShareController {
 
     @RequestMapping(value = "/api/v1/apps", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse getServers(HttpServletRequest req, HttpServletResponse res) {
+    RestResponse getServers(HttpServletRequest req, HttpServletResponse res,String main_account) {
         RestResponse restR = new RestResponse();
-
-        List<AppShares> appsList = appsService.findAllAppShares();
+        if(VStringUtils.isEmpty(main_account)){
+            restR.setMessage("用户手机号不存在");
+            return restR;
+        }
+        List<AppShares> appsList = appsService.findAllAppShares(main_account);
         restR.setMessage(RestResponse.OK);
         restR.getData().put("apps", appsList);
 //        restR.getData().put("uuid",order.getUuid());

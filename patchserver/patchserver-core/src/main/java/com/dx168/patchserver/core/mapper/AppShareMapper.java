@@ -14,7 +14,7 @@ public interface AppShareMapper {
 
     Integer insert(AppShares appShares);
 
-    List<AppShares> findAllAppShares();
+    List<AppShares> findAllAppShares(String main_account);
 
     void deleteById(Integer id);
 

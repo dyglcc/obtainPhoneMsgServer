@@ -18,16 +18,16 @@ public class RelationService {
         return serverMapper.insert(relation);
     }
 
-    public List<Relation> findRelation(String user_phone) {
-        return serverMapper.findRelation(user_phone);
+    public List<Relation> findRelation(Relation relation) {
+        return serverMapper.findRelation(relation);
     }
-    public List<Relation> findLeader(String relate_phone) {
-        return serverMapper.findLeader(relate_phone);
+    public List<Relation> findLeader(String sub_account) {
+        return serverMapper.findLeader(sub_account);
     }
 
-    public void deleteById(String relate_phone) {
+    public void deleteById(String sub_account) {
 
-        serverMapper.deleteByRelationPhone(relate_phone);
+        serverMapper.deleteByRelationPhone(sub_account);
     }
 
 

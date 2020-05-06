@@ -13,7 +13,7 @@ public interface UserAppMapper {
 
     Integer insert(UserApp userApp);
 
-    List<UserApp> findAllGroups();
+    List<UserApp> findAllGroups(String main_account);
 
     void deleteById(Integer id);
     void update(UserApp userApp);

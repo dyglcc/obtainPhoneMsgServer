@@ -39,10 +39,13 @@ CREATE TABLE `t_app_shares` (
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="created_at" property="created_at" />
         <result column="updated_at" property="updated_at" />
+
+
+
     </resultMap>
 
     <select id="findAllAppShares" resultMap="BaseResultMap">
-        select * from t_app_shares order by created_at desc ;
+        select app.*,t.status,t.id as group_id from t_app_shares app left join t_shares t on app.id = t.app_id and t.main_account=#{main_account} order by created_at desc ;
     </select>
     <insert id="insert" parameterType="com.dx168.patchserver.core.domain.AppShares">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">

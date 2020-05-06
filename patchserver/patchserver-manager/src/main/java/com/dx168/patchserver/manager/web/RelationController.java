@@ -24,12 +24,12 @@ public class RelationController {
     private RelationService orderService;
 
     // 新创建订单 // or renewal
-    @RequestMapping(value = "/api/v1/addrelation", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/v1/addRelation", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse ticket(HttpServletRequest req, String name, String user_phone, String relate_phone,String group_id) {
+    RestResponse ticket(HttpServletRequest req, String name, String main_account, String sub_account,String group_id) {
         RestResponse restResponse = new RestResponse();
 
-        if(VStringUtils.isEmpty(user_phone)){
+        if(VStringUtils.isEmpty(main_account)){
             restResponse.setMessage("用户手机号不存在");
             return restResponse;
         }
@@ -37,7 +37,7 @@ public class RelationController {
             restResponse.setMessage("用户组不能是空");
             return restResponse;
         }
-        if(VStringUtils.isEmpty(relate_phone)){
+        if(VStringUtils.isEmpty(sub_account)){
             restResponse.setMessage("关联手机号不存在");
             return restResponse;
         }
@@ -49,12 +49,15 @@ public class RelationController {
         try{
             relation.setName(name);
             relation.setGroup_id(Integer.parseInt(group_id));
-            relation.setRelate_phone(relate_phone);
-            relation.setUser_phone(user_phone);
+            relation.setSub_account(sub_account);
+            relation.setMain_account(main_account);
             relation.setCreated_at(new Date());
 
             orderService.insert(relation);
-            List<Relation> list =orderService.findRelation(user_phone);
+            Relation se = new Relation();
+            se.setMain_account(main_account);
+            se.setGroup_id(Integer.parseInt(group_id));
+            List<Relation> list =orderService.findRelation(se);
             restResponse.setMessage(RestResponse.OK);
             restResponse.getData().put("data",list);
             return restResponse;
@@ -70,15 +73,18 @@ public class RelationController {
     // 新创建订单 // or renewal
     @RequestMapping(value = "/api/v1/relations", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse relation(HttpServletRequest req, String mobile) {
+    RestResponse relation(HttpServletRequest req, String main_account,String group_id) {
         RestResponse restResponse = new RestResponse();
 
-        if(VStringUtils.isEmpty(mobile)){
+        if(VStringUtils.isEmpty(main_account)){
             restResponse.setMessage("用户手机号不存在");
             return restResponse;
         }
         try{
-            List<Relation> list =orderService.findRelation(mobile);
+            Relation relation = new Relation();
+            relation.setMain_account(main_account);
+            relation.setGroup_id(Integer.parseInt(group_id));
+            List<Relation> list =orderService.findRelation(relation);
             restResponse.setMessage(RestResponse.OK);
             restResponse.getData().put("data",list);
             return restResponse;
@@ -90,18 +96,39 @@ public class RelationController {
             restResponse.toString();
         }
     }
-    // 新创建订单 // or renewal
-    @RequestMapping(value = "/api/v1/findLeader", method = RequestMethod.POST)
+//    @RequestMapping(value = "/api/v1/findMainAccount", method = RequestMethod.POST)
+//    public @ResponseBody
+//    RestResponse findLeader(HttpServletRequest req, String mobile) {
+//        RestResponse restResponse = new RestResponse();
+//
+//        if(VStringUtils.isEmpty(mobile)){
+//            restResponse.setMessage("用户手机号不存在");
+//            return restResponse;
+//        }
+//        try{
+//            List<Relation> list =orderService.findLeader(mobile);
+//            restResponse.setMessage(RestResponse.OK);
+//            restResponse.getData().put("data",list);
+//            return restResponse;
+//        } catch (BizException e) {
+//            e.printStackTrace();
+//            restResponse.setMessage(e.getMessage());
+//            return restResponse;
+//        } finally {
+//            restResponse.toString();
+//        }
+//    }
+    @RequestMapping(value = "/api/v1/findSubAccount", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse findLeader(HttpServletRequest req, String mobile) {
+    RestResponse findSubAccount(HttpServletRequest req, String sub_account) {
         RestResponse restResponse = new RestResponse();
 
-        if(VStringUtils.isEmpty(mobile)){
+        if(VStringUtils.isEmpty(sub_account)){
             restResponse.setMessage("用户手机号不存在");
             return restResponse;
         }
         try{
-            List<Relation> list =orderService.findLeader(mobile);
+            List<Relation> list =orderService.findLeader(sub_account);
             restResponse.setMessage(RestResponse.OK);
             restResponse.getData().put("data",list);
             return restResponse;

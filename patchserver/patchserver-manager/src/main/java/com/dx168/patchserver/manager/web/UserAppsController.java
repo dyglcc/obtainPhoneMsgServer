@@ -24,7 +24,6 @@ import java.util.List;
 public class UserAppsController {
     @Autowired
     private AccountService accountService;
-todo ,设计一对多关联关系，
     @Autowired
     private UserAppService appsService;
     @Autowired
@@ -32,10 +31,15 @@ todo ,设计一对多关联关系，
 
     @RequestMapping(value = "/api/v1/groups", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse getGroups(HttpServletRequest req, HttpServletResponse res) {
+    RestResponse getGroups(HttpServletRequest req, HttpServletResponse res,String main_account) {
         RestResponse restR = new RestResponse();
 
-        List<UserApp> appsList = appsService.findAllGroups();
+        if(VStringUtils.isEmpty(main_account)){
+            restR.setMessage("用户手机号不存在");
+            return restR;
+        }
+
+        List<UserApp> appsList = appsService.findAllGroups(main_account);
         restR.setMessage(RestResponse.OK);
         restR.getData().put("apps", appsList);
 //        restR.getData().put("uuid",order.getUuid());
@@ -45,13 +49,13 @@ todo ,设计一对多关联关系，
 
     @RequestMapping(value = "/api/v1/addGroup", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse insert(HttpServletRequest req, HttpServletResponse res, String app_id,String mobile,String group_id) {
+    RestResponse insert(HttpServletRequest req, HttpServletResponse res, String app_id,String main_account,String group_id) {
         RestResponse restR = new RestResponse();
-        if(VStringUtils.isEmpty(mobile)){
+        if(VStringUtils.isEmpty(main_account)){
             restR.setMessage("用户手机号不存在");
             return restR;
         }
-        if(VStringUtils.isEmpty(mobile)){
+        if(VStringUtils.isEmpty(main_account)){
             restR.setMessage("app id 不能为空");
             return restR;
         }
@@ -63,7 +67,7 @@ todo ,设计一对多关联关系，
         }
         UserApp userApp = new UserApp();
         userApp.setApp_id(Integer.parseInt(app_id));
-        userApp.setMain_account(mobile);
+        userApp.setMain_account(main_account);
         userApp.setCreated_at(new Date());
         appsService.insert(userApp);
         restR.setMessage(RestResponse.OK);
@@ -76,14 +80,11 @@ todo ,设计一对多关联关系，
         RestResponse restR = new RestResponse();
 //        appsService.deleteById(id);
         // 并不是真的删除只是改状态为0
-        UserApp userApp = new UserApp();
-        userApp.setId(id);
-        userApp.setStatus(0);
-        appsService.update(userApp);
+        update(req,res,id,0);
         restR.setMessage(RestResponse.OK);
         return restR;
     }
-    @RequestMapping(value = "/api/v1/update", method = RequestMethod.POST)
+//    @RequestMapping(value = "/api/v1/updateGroup", method = RequestMethod.POST)
     public @ResponseBody
     RestResponse update(HttpServletRequest req, HttpServletResponse res, Integer id,Integer status) {
         UserApp userApp = new UserApp();

@@ -17,8 +17,8 @@
 DROP TABLE IF EXISTS `t_relation`;
 CREATE TABLE `t_relation` (
   `id`           INT         NOT NULL AUTO_INCREMENT,
-  `user_phone`      VARCHAR(32)               DEFAULT NULL,
-  `relate_phone`      VARCHAR(32)               DEFAULT NULL,
+  `main_account`      VARCHAR(32)               DEFAULT NULL,
+  `sub_account`      VARCHAR(32)               DEFAULT NULL,
   `name`      VARCHAR(32)               DEFAULT NULL,
   `created_at`   DATETIME             DEFAULT NULL,
   `updated_at`   DATETIME             DEFAULT NULL,
@@ -39,21 +39,21 @@ CREATE TABLE `t_relation` (
     </resultMap>
 
     <select id="findRelation" resultMap="BaseResultMap">
-        select * from t_relation where user_phone = #{user_phone}  order by created_at desc ;
+        select * from t_relation where main_account = #{main_account} and group_id = #{group_id}  order by created_at desc ;
     </select>
     <select id="findLeader" resultMap="BaseResultMap">
-        select * from t_relation where relate_phone = #{relate_phone}  order by created_at desc ;
+        select t.id,t.group_id,t.main_account,t.sub_account,t.name,t.created_at,app.icon_url,app.app_name from t_relation t,t_app_shares app  where sub_account = #{sub_account} and t.group_id = app.id group by t.group_id  order by t.created_at desc ;
     </select>
     <insert id="insert" parameterType="com.dx168.patchserver.core.domain.Relation">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
         insert into t_relation (
-        user_phone, relate_phone,group_id,name,created_at,updated_at
+        main_account, sub_account,group_id,name,created_at,updated_at
         )
         values (
-        #{user_phone,jdbcType=VARCHAR},
-        #{relate_phone,jdbcType=VARCHAR},
+        #{main_account,jdbcType=VARCHAR},
+        #{sub_account,jdbcType=VARCHAR},
         #{group_id,jdbcType=INTEGER},
         #{name,jdbcType=VARCHAR},
         #{created_at,jdbcType=TIMESTAMP},
@@ -62,7 +62,7 @@ CREATE TABLE `t_relation` (
     </insert>
 
     <delete id="deleteByRelationPhone" >
-        DELETE FROM t_relation where relate_phone = #{relate_phone}
+        DELETE FROM t_relation where sub_account = #{sub_account}
     </delete>
 
 </mapper>

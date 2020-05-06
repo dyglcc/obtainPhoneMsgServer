@@ -20,8 +20,8 @@ public class AppShareService {
         return appShareMapper.insert(appShares);
     }
 
-    public List<AppShares> findAllAppShares() {
-        return appShareMapper.findAllAppShares();
+    public List<AppShares> findAllAppShares(String main_account) {
+        return appShareMapper.findAllAppShares(main_account);
     }
 
     public void deleteById(Integer id) {
