@@ -122,6 +122,7 @@ public class RelationController {
     public @ResponseBody
     RestResponse findSubAccount(HttpServletRequest req, String sub_account) {
         RestResponse restResponse = new RestResponse();
+        System.out.println("");
 
         if(VStringUtils.isEmpty(sub_account)){
             restResponse.setMessage("用户手机号不存在");

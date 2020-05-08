@@ -15,8 +15,6 @@ import com.dx168.patchserver.core.utils.BizException;
 import com.dx168.patchserver.core.utils.VStringUtils;
 import com.dx168.patchserver.manager.common.RestResponse;
 import com.dx168.patchserver.manager.service.SubmitTicketService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +39,6 @@ public class MessageController {
     public static final String TAG = "tag_api";
     @Autowired
     private SubmitTicketService orderService;
-    protected static final Logger LOG = LoggerFactory.getLogger(MessageController.class);
 
     // 新创建订单 // or renewal
     @RequestMapping(value = "/api/v1/submitticket", method = RequestMethod.POST)
@@ -106,18 +103,19 @@ public class MessageController {
         try {
 //            PushResult result = jpushClient.sendAndroidMessageWithAlias("title_from_server","nishoudao一个yanzhengma",mobile);
             PushResult result = jpushClient.sendPush(payload);
-            LOG.info("Got result - " + result);
 
         } catch (APIConnectionException e) {
             // Connection error, should retry later
-            LOG.error("Connection error, should retry later", e);
+//            LOG.error("Connection error, should retry later", e);
+            System.err.println("Connection error, should retry later");
 
         } catch (APIRequestException e) {
             // Should review the error, and fix the request
-            LOG.error("Should review the error, and fix the request", e);
-            LOG.info("HTTP Status: " + e.getStatus());
-            LOG.info("Error Code: " + e.getErrorCode());
-            LOG.info("Error Message: " + e.getErrorMessage());
+//            LOG.error("Should review the error, and fix the request", e);
+//            LOG.info("HTTP Status: " + e.getStatus());
+//            LOG.info("Error Code: " + e.getErrorCode());
+//            LOG.info("Error Message: " + e.getErrorMessage());
+            System.err.println("Error Message: " + e.getErrorMessage());
         }
     }
 //
