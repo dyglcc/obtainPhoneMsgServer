@@ -1,7 +1,7 @@
 localhost:9000
 {
     root /root/opt/obtainMsgServer/patchserver/static/icon
-    log /root/opt/obtainMsg/Server/log
+    log /root/opt/obtainMsgServer/log
     proxy /api localhost:9999/hotfix-console {
         
         
