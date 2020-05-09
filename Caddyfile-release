@@ -1,7 +1,7 @@
-localhost:9000
+49.232.114.111:9000
 {
-    root /root/opt/obtainMsgServer/patchserver/static/icon
-    log /root/opt/obtainMsgServer/log
+    root /root/opt/obtainPhoneMsgServer/patchserver/static/icon
+    log /root/opt/obtainPhoneServer/log
     proxy /api localhost:9999/hotfix-console {
         
         
