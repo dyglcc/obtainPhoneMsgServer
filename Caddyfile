@@ -1,9 +1,7 @@
 192.168.1.2:9000
 {
     root /Users/dongyuangui/GITHUB/obtainMsgServer/patchserver/static/icon
-    log /Users/dongyuangui/GITHUB/testabc/log
     proxy /api localhost:9999/hotfix-console {
-        
         
 
     }
