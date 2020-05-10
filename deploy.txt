@@ -1,4 +1,5 @@
 注意事项：
+111111111111111111111111111注意，打的hotfix包需要单独拷贝到webapps/下面否则可能会出错。
 1.nodeServer需要重启v2ray服务，使用到命令systemctl restart v2ray.service
 apt-get install ufw;
 ufw enable;

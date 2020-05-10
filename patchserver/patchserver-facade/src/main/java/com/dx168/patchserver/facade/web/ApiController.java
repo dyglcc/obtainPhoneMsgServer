@@ -1,6 +1,14 @@
 package com.dx168.patchserver.facade.web;
 
-import com.dx168.patchserver.core.domain.*;
+import com.dx168.patchserver.core.domain.AppInfo;
+import com.dx168.patchserver.core.domain.Channel;
+import com.dx168.patchserver.core.domain.PatchInfo;
+import com.dx168.patchserver.core.domain.VersionInfo;
+import com.dx168.patchserver.core.utils.BizAssert;
+import com.dx168.patchserver.core.utils.BizException;
+import com.dx168.patchserver.facade.common.RestResponse;
+import com.dx168.patchserver.facade.dto.PatchInfoDto;
+import com.dx168.patchserver.facade.service.ApiService;
 import com.dx168.patchserver.facade.service.RequestStatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,17 +20,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.dx168.patchserver.facade.dto.PatchInfoDto;
-import com.dx168.patchserver.core.utils.BizAssert;
-import com.dx168.patchserver.core.utils.BizException;
-import com.dx168.patchserver.facade.common.RestResponse;
-import com.dx168.patchserver.facade.service.ApiService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -248,12 +249,12 @@ public class ApiController {
         return new RestResponse();
     }
 
-    @RequestMapping(value = "/health", method = RequestMethod.GET)
-    public @ResponseBody
-    RestResponse health() throws Exception {
-        RestResponse restR = new RestResponse();
-        restR.setMessage("I am still alive");
-        restR.setData(requestStatService.getStatInfo());
-        return restR;
-    }
+//    @RequestMapping(value = "/health", method = RequestMethod.GET)
+//    public @ResponseBody
+//    RestResponse health() throws Exception {
+//        RestResponse restR = new RestResponse();
+//        restR.setMessage("I am still alive");
+//        restR.setData(requestStatService.getStatInfo());
+//        return restR;
+//    }
 }

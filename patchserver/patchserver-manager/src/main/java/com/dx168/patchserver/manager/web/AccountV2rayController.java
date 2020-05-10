@@ -241,5 +241,16 @@ public class AccountV2rayController {
         } finally {
             restResponse.toString();
         }
+
+
+    }
+
+
+    @RequestMapping(value = "/api/v1/health", method = RequestMethod.GET)
+    public @ResponseBody
+    RestResponse health() throws Exception {
+        RestResponse restR = new RestResponse();
+        restR.setMessage("I am still alive");
+        return restR;
     }
 }
