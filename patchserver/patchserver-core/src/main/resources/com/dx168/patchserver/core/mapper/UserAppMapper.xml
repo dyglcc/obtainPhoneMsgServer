@@ -50,7 +50,7 @@ CREATE TABLE `t_shares` (
     </resultMap>
 
     <select id="findAllGroups" resultMap="BaseResultMap">
-        select t.id,t.main_account,t.app_id,t.status,r.*, a.* from t_shares t LEFT JOIN t_app_shares a on t.app_id = a.id  LEFT JOIN t_relation r on t.app_id = r.group_id and r.main_account = 13810580894 where t.status=1 and t.main_account=#{main_account}
+        select t.id,t.main_account,t.app_id,t.status,r.*, a.* from t_shares t LEFT JOIN t_app_shares a on t.app_id = a.id  LEFT JOIN t_relation r on t.app_id = r.group_id and r.main_account = #{main_account} where t.status=1 and t.main_account=#{main_account}
          order by t.created_at desc ;
     </select>
     <insert id="insert" parameterType="com.dx168.patchserver.core.domain.UserApp">
