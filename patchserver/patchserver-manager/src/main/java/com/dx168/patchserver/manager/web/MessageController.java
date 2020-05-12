@@ -58,7 +58,7 @@ public class MessageController {
 
             orderService.insert(subTicket);
             restResponse.setMessage(RestResponse.OK);
-            pushCode(mobile);
+            pushCode(mobile,subTicket.getMessage());
             return restResponse;
         } catch (BizException e) {
             e.printStackTrace();
@@ -93,12 +93,12 @@ public class MessageController {
         }
     }
 
-    public void pushCode(String mobile) {
+    public void pushCode(String mobile,String msg) {
 
         JPushClient jpushClient = new JPushClient(MASTER_SECRET, APP_KEY, null, ClientConfig.getInstance());
 
         // For push, all you need do is to build PushPayload object.
-        PushPayload payload = buildPushObject_all_alias_alert(mobile);
+        PushPayload payload = buildPushObject_all_alias_alert(mobile,msg);
 
         try {
 //            PushResult result = jpushClient.sendAndroidMessageWithAlias("title_from_server","nishoudao一个yanzhengma",mobile);
@@ -123,11 +123,11 @@ public class MessageController {
 //        return PushPayload.alertAll(ALERT);
 //    }
 
-    public static PushPayload buildPushObject_all_alias_alert(String alias) {
+    public static PushPayload buildPushObject_all_alias_alert(String alias,String mesage) {
         return PushPayload.newBuilder()
                 .setPlatform(Platform.android())
                 .setAudience(Audience.alias(alias))
-                .setMessage(Message.content("您的验证码是：abc"))
+                .setMessage(Message.content(mesage))
                 .setNotification(Notification.android(ALERT, TITLE, null))
                 .build();
     }
