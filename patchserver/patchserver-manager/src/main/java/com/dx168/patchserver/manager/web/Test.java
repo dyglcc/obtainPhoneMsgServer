@@ -1,26 +1,28 @@
 package com.dx168.patchserver.manager.web;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Test {
 
 
-    public static final HashMap<Integer, BigDecimal> mapPrice = new HashMap();
-
-    static {
-        mapPrice.put(0, new BigDecimal(16.00));
-        mapPrice.put(1, new BigDecimal(200));
-        mapPrice.put(2, mapPrice.get(1).multiply(new BigDecimal(1.8)));
-        mapPrice.put(3, mapPrice.get(1).multiply(new BigDecimal(2.4)));
-    }
-
     public static void main(String[] args){
-        DecimalFormat form = new DecimalFormat("0.00");
-        System.out.println(mapPrice.get(2));
-        System.out.println(mapPrice.get(3));
-        BigDecimal decimal = mapPrice.get(3);
-        System.out.println(form.format(decimal));
+
+        String str = "星巴克】验证码：112111，15分钟内输入有效，立即登录";
+        Pattern pattern = Pattern.compile("\\b\\d{4,8}\\b");
+        Matcher matcher = pattern.matcher(str);
+
+        if(matcher.find()){
+            String foundOne = matcher.group(0);
+            System.out.println(foundOne);
+        }
+
+//        if(found){
+//            String content = matcher.group(0);
+//            System.out.println("found" + found +"aa " + content);
+//        }else{
+//            System.out.println("empty");
+//        }
+
     }
 }

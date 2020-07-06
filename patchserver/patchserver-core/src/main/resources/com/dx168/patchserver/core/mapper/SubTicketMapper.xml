@@ -43,6 +43,9 @@ CREATE TABLE `t_subticket` (
     <select id="findAllMessages" resultMap="BaseResultMap">
         select * from t_subticket where user = #{user} order by created_at desc ;
     </select>
+    <select id="findSingleMessage" resultMap="BaseResultMap">
+        select * from t_subticket where user = #{0} and message like CONCAT('%',#{1},'%') order by created_at desc limit 1;
+    </select>
     <insert id="insert" parameterType="com.dx168.patchserver.core.domain.SubTicket">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID() AS id

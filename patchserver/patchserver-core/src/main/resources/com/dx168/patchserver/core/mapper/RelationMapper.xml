@@ -62,7 +62,7 @@ CREATE TABLE `t_relation` (
     </insert>
 
     <delete id="deleteByRelationPhone" >
-        DELETE FROM t_relation where sub_account = #{sub_account}
+        DELETE FROM t_relation where sub_account = #{sub_account} and main_account=#{main_account} and group_id=#{group_id};
     </delete>
 
 </mapper>

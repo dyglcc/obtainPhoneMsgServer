@@ -58,7 +58,7 @@ public class MessageController {
 
             orderService.insert(subTicket);
             restResponse.setMessage(RestResponse.OK);
-            pushCode(mobile,subTicket.getMessage());
+//            pushCode(mobile,subTicket.getMessage());
             return restResponse;
         } catch (BizException e) {
             e.printStackTrace();
@@ -92,6 +92,37 @@ public class MessageController {
             restResponse.toString();
         }
     }
+
+    // 新创建订单 // or renewal
+    @RequestMapping(value = "/api/v1/getSingleMessage", method = RequestMethod.POST)
+    public @ResponseBody
+    RestResponse getSingleMessage(HttpServletRequest req, String main_account,String app_name) {
+        RestResponse restResponse = new RestResponse();
+
+        if (VStringUtils.isEmpty(main_account)) {
+            restResponse.setMessage("用户手机号不存在");
+            return restResponse;
+        }
+        if (VStringUtils.isEmpty(app_name)) {
+            restResponse.setMessage("app名称不能为空");
+            return restResponse;
+        }
+        try {
+            SubTicket singleMessage = orderService.findSingleMessage(main_account,app_name);
+            restResponse.setMessage(RestResponse.OK);
+            restResponse.getData().put("data", singleMessage);
+            return restResponse;
+        } catch (BizException e) {
+            e.printStackTrace();
+            restResponse.setMessage(e.getMessage());
+            return restResponse;
+        } finally {
+            restResponse.toString();
+        }
+    }
+
+
+
 
     public void pushCode(String mobile,String msg) {
 

@@ -16,7 +16,6 @@ public interface RelationMapper {
     List<Relation> findRelation(Relation relation);
     List<Relation> findLeader(String sub_account);
 
-    void deleteByRelationPhone(String sub_account);
-
+    void deleteByRelationPhone(Relation relation);
 
 }

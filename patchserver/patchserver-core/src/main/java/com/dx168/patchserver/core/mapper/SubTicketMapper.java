@@ -14,6 +14,7 @@ public interface SubTicketMapper {
     Integer insert(SubTicket subTicket);
 
     List<SubTicket> findAllMessages(String user);
+    SubTicket findSingleMessage(String user,String app_name);
 
     void deleteById(Integer id);
     void updateStatus(SubTicket server);

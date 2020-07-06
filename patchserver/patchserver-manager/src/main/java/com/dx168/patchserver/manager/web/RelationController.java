@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -141,6 +142,25 @@ public class RelationController {
             restResponse.toString();
         }
     }
+    @RequestMapping(value = "/api/v1/dSubAccount", method = RequestMethod.POST)
+    public @ResponseBody
+    RestResponse delete(HttpServletRequest req, HttpServletResponse res, String main_account,String sub_account,String group_id) {
+        if(VStringUtils.isEmpty(sub_account)){
+            RestResponse restR = new RestResponse();
+            restR.setMessage("子帐号不能为空");
+            return restR;
+        }
+//        RestResponse restR = new RestResponse();
+//        appsService.deleteById(id);
+        // 并不是真的删除只是改状态为0
+        Relation relation = new Relation();
+        relation.setGroup_id(Integer.parseInt(group_id));
+        relation.setMain_account(main_account);
+        relation.setSub_account(sub_account);
+        orderService.deleteById(relation);
+//        restR.setMessage(RestResponse.OK);
 
+        return relation(req,main_account,group_id);
+    }
 
 }

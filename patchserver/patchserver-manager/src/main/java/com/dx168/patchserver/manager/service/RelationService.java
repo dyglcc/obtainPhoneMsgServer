@@ -25,9 +25,9 @@ public class RelationService {
         return serverMapper.findLeader(sub_account);
     }
 
-    public void deleteById(String sub_account) {
+    public void deleteById(Relation relation) {
 
-        serverMapper.deleteByRelationPhone(sub_account);
+        serverMapper.deleteByRelationPhone(relation);
     }
 
 

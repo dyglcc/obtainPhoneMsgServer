@@ -119,9 +119,9 @@ public class AccountV2rayController {
                 restResponse.setMessage("暂不接受注册");
                 return restResponse;
             }
-            BasicUser basicUser = accountService.findByUsername(email);
+            BasicUser basicUser = accountService.findByMobile(mobile);
             if (basicUser != null) {
-                restResponse.setMessage(email + "已经被注册");
+                restResponse.setMessage( "该帐号已经被注册");
                 return restResponse;
             }
             basicUser = new BasicUser();
@@ -227,6 +227,39 @@ public class AccountV2rayController {
             }
             if(VStringUtils.isEmpty(oldPass)){
                 restResponse.setMessage("旧密码不能为空");
+                return restResponse;
+            }
+            basicUser.setPassword(newPass);
+            accountService.updatePass(basicUser);
+
+            restResponse.setMessage(RestResponse.OK);
+            return restResponse;
+        } catch (BizException e) {
+            e.printStackTrace();
+            restResponse.setMessage(e.getMessage());
+            return restResponse;
+        } finally {
+            restResponse.toString();
+        }
+
+
+    }
+    @RequestMapping(value = "/api/v1/forgotPass", method = RequestMethod.POST)
+    public @ResponseBody
+    RestResponse changePwd(HttpServletRequest req,HttpServletResponse res, String mobile, String newPass) {
+        RestResponse restResponse = new RestResponse();
+        try {
+            BasicUser basicUser = accountService.findByMobile(mobile);
+            if(basicUser == null){
+                restResponse.setMessage("手机号未注册，请先注册该帐号");
+                return restResponse;
+            }
+            if (VStringUtils.isEmpty(mobile)) {
+                restResponse.setMessage("手机号不能空");
+                return restResponse;
+            }
+            if(VStringUtils.isEmpty(newPass)){
+                restResponse.setMessage("新密码不能为空");
                 return restResponse;
             }
             basicUser.setPassword(newPass);

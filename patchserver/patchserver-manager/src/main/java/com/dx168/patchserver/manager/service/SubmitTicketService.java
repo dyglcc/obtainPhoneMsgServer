@@ -22,6 +22,9 @@ public class SubmitTicketService{
     public List<SubTicket> findAllMessages(String user) {
         return serverMapper.findAllMessages(user);
     }
+    public SubTicket findSingleMessage(String user,String app_name) {
+        return serverMapper.findSingleMessage(user,app_name);
+    }
 
     public void deleteById(Integer id) {
 
