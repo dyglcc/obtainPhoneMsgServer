@@ -162,7 +162,10 @@ CREATE TABLE `t_order` (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-/*用户表*/
+/*用户表
+*
+*lastname ,email 暂时没有使用
+*/
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id`           INT         NOT NULL AUTO_INCREMENT,

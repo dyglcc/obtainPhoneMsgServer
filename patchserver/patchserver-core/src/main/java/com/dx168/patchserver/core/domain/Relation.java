@@ -24,6 +24,7 @@ public class Relation {
     private String name;
 
 
+
     public String getMain_account() {
         return main_account;
     }

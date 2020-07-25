@@ -52,6 +52,10 @@ public class RelationController {
             relation.setGroup_id(Integer.parseInt(group_id));
             relation.setSub_account(sub_account);
             relation.setMain_account(main_account);
+//            BasicUser basicUser = accountService.findByMobile(main_account);
+//            if(basicUser!=null){
+//                relation.setMain_account_name(basicUser.getFirstName());
+//            }
             relation.setCreated_at(new Date());
 
             orderService.insert(relation);

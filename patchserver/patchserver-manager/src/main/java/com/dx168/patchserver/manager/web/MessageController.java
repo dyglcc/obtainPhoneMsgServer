@@ -40,7 +40,7 @@ public class MessageController {
     @Autowired
     private SubmitTicketService orderService;
 
-    // 新创建订单 // or renewal
+    // 新创建订单 // or renewal[
     @RequestMapping(value = "/api/v1/submitticket", method = RequestMethod.POST)
     public @ResponseBody
     RestResponse ticket(String mobile, String message) {
