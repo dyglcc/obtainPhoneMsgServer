@@ -49,7 +49,7 @@ public class UserAppsController {
 
     @RequestMapping(value = "/api/v1/addGroup", method = RequestMethod.POST)
     public @ResponseBody
-    RestResponse insert(HttpServletRequest req, HttpServletResponse res, String app_id,String main_account,String group_id) {
+    RestResponse insert(HttpServletRequest req, HttpServletResponse res, String app_id,String main_account,String group_id,String add) {
         RestResponse restR = new RestResponse();
         if(VStringUtils.isEmpty(main_account)){
             restR.setMessage("用户手机号不存在");
@@ -61,7 +61,13 @@ public class UserAppsController {
         }
         if(!VStringUtils.isEmpty(group_id)){
             // 存在groupid，重新启用
-            update(req,res,Integer.parseInt(group_id),1);
+            if(!VStringUtils.isEmpty(add)){
+                if(Boolean.parseBoolean(add)){
+                    update(req,res,Integer.parseInt(group_id),1);
+                }else{
+                    delete(req,res,Integer.parseInt(group_id));
+                }
+            }
             restR.setMessage(RestResponse.OK);
             return restR;
         }
@@ -93,4 +99,5 @@ public class UserAppsController {
         appsService.update(userApp);
         return null;
     }
+
 }

@@ -3,6 +3,7 @@ package com.dx168.patchserver.manager.service;
 import com.dx168.patchserver.core.domain.UserApp;
 import com.dx168.patchserver.core.mapper.UserAppMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +30,11 @@ public class UserAppService {
     }
     public void update(UserApp userApp){
         appShareMapper.update(userApp);
+    }
+
+    @Async
+    public void addAllApps(String mobile) throws InterruptedException {
+//        Thread.sleep(10000);
+        appShareMapper.addAllApps(mobile);
     }
 }

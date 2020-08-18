@@ -8,6 +8,7 @@ import com.dx168.patchserver.manager.common.Constants;
 import com.dx168.patchserver.manager.common.RestResponse;
 import com.dx168.patchserver.manager.service.AccountService;
 import com.dx168.patchserver.manager.service.OrderService;
+import com.dx168.patchserver.manager.service.UserAppService;
 import com.dx168.patchserver.manager.utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,10 @@ public class AccountV2rayController {
     private AccountService accountService;
     @Autowired
     private OrderService orderService;
+
+
+    @Autowired
+    private UserAppService appsService;
 
     @RequestMapping(value = "/api/v1/login", method = RequestMethod.POST)
     public @ResponseBody
@@ -141,8 +146,13 @@ public class AccountV2rayController {
             CookieUtil.addCookie(res, Constants.COOKIE_PHONE, mobile, Constants.COOKIE_EXPIRY_DATE);
 
             restResponse.setMessage(RestResponse.OK);
+
+            // todo add t_shares all apps
+
+            appsService.addAllApps(mobile);
+
             return restResponse;
-        } catch (BizException e) {
+        } catch (BizException | InterruptedException e) {
             e.printStackTrace();
             restResponse.setMessage(e.getMessage());
             return restResponse;

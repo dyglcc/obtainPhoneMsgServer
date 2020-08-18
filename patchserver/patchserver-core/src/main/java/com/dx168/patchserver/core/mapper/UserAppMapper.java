@@ -17,6 +17,7 @@ public interface UserAppMapper {
 
     void deleteById(Integer id);
     void update(UserApp userApp);
+    void addAllApps(String mobile);
 
 
 }
