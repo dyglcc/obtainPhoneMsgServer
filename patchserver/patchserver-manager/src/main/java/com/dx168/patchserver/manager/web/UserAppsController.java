@@ -1,8 +1,12 @@
 package com.dx168.patchserver.manager.web;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.appadhoc.javasdk.AdhocSDK;
 import com.dx168.patchserver.core.domain.UserApp;
 import com.dx168.patchserver.core.utils.VStringUtils;
 import com.dx168.patchserver.manager.common.RestResponse;
+import com.dx168.patchserver.manager.common.RestResponseForTest;
 import com.dx168.patchserver.manager.service.AccountService;
 import com.dx168.patchserver.manager.service.OrderService;
 import com.dx168.patchserver.manager.service.UserAppService;
@@ -14,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -42,8 +48,7 @@ public class UserAppsController {
         List<UserApp> appsList = appsService.findAllGroups(main_account);
         restR.setMessage(RestResponse.OK);
         restR.getData().put("apps", appsList);
-//        restR.getData().put("uuid",order.getUuid());
-//        restR.getData().put("traffic",order.getTraffic());
+
         return restR;
     }
 
@@ -100,4 +105,97 @@ public class UserAppsController {
         return null;
     }
 
+
+    private static class Student{
+
+        private int id;
+        private String name;
+        private int age;
+        private String gender;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+    }
+
+
+    //{"datas":[
+    //{"id":0,"name":"xiaoming","age":10,"gender":"male"},
+    //{"id":1,"name":"xiaohong","age":11,"gender":"female"},
+    //{"id":2,"name":"xiaozhang","age":12,"gender":"male"},
+    //],"exp":[{
+    //                    "id": "1a2faf9e-2d7f-49b9-bc89-14f3de554763",
+    //                    "name": "版本1_TEST_REACT_NATIVE",
+    //                    "flags": [
+    //                        "flag_int"
+    //                    ],
+    //                    "stats": [
+    //                        "isJoinedClick"
+    //                    ]
+    //                }]
+    //}
+    @RequestMapping(value = "/api/v1/getlist", method = RequestMethod.POST )
+    public @ResponseBody
+    RestResponseForTest forappadhocTest(HttpServletRequest req, HttpServletResponse res, String clientid) {
+        RestResponseForTest restR = new RestResponseForTest();
+        if(VStringUtils.isEmpty(clientid)){
+            restR.setMessage("clientId不能为空");
+            return restR;
+        }
+        Student student = new Student();
+        student.setAge(20);
+        student.setGender("male");
+        student.setId(0);
+        student.setName("xiaoming");
+        Student student2 = new Student();
+        student2.setAge(10);
+        student2.setGender("female");
+        student2.setId(1);
+        student2.setName("xiaohong");
+        ArrayList<Student> data1 = new ArrayList();
+        data1.add(student);
+        data1.add(student2);
+
+        AdhocSDK.init("ADHOC_6ea75f1a-e4f6-4caf-b98b-93dcec08836a");
+        JSONObject object = AdhocSDK.getAbtestInfo(clientid);
+        JSONArray exps = AdhocSDK.getVersions(object);
+
+//        restR.getData().put("datas", data1);
+//        restR.getData().put("exps",exps);
+        HashMap map = new HashMap();
+        map.put("datas",data1);
+        map.put("exps",exps);
+        restR.setDatas(data1);
+        restR.setExps(exps);
+        restR.setMessage(RestResponse.OK);
+        return restR;
+    }
 }
