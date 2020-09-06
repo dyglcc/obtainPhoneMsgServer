@@ -162,7 +162,7 @@ public class UserAppsController {
     //                    ]
     //                }]
     //}
-    @RequestMapping(value = "/api/v1/getlist", method = RequestMethod.POST )
+    @RequestMapping(value = "/api/v1/getlist", method = RequestMethod.GET )
     public @ResponseBody
     RestResponseForTest forappadhocTest(HttpServletRequest req, HttpServletResponse res, String clientid) {
         RestResponseForTest restR = new RestResponseForTest();
